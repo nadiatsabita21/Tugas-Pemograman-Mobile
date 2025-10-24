@@ -1,273 +1,201 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const ModernProfileApp());
+}
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class ModernProfileApp extends StatelessWidget {
+  const ModernProfileApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Tugas Layout Flutter',
       debugShowCheckedModeBanner: false,
-      title: 'Tugas 1 PM',
-      theme: ThemeData(primarySwatch: Colors.blue), 
-      home: const HomePage(),
+      home: const ModernProfilePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class ModernProfilePage extends StatelessWidget {
+  const ModernProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isWide = size.width > 600; 
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Layout Column & Row'),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              
-              _buildHeader(),
-              const SizedBox(height: 20),
-
-              
-              Expanded(
-                child: isWide ? _buildWideLayout() : _buildNarrowLayout(),
-              ),
-
-              const SizedBox(height: 20),
-
-              _buildFooter(context),
-            ],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF81C4FF), Color(0xFFB388FF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      children: [
-        Container(
-          width: 80,
-          height: 56,
-          decoration: BoxDecoration(
-            color: Colors.blue.shade100,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Icon(Icons.dashboard, size: 32, color: Colors.blue),
-        ),
-        const SizedBox(width: 12),
-        const Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Dashboard Contoh',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Layout',
-                style: TextStyle(fontSize: 13),
-              ),
-            ],
-          ),
-        ),
-        ElevatedButton.icon(
-          onPressed: () {},
-          icon: const Icon(Icons.add),
-          label: const Text('Tambah'),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildWideLayout() {
-    return Row(
-      children: [
-        Flexible(
-          flex: 2,
-          child: Column(
-            children: [
-              _buildCard(title: 'Profil', height: 140),
-              const SizedBox(height: 12),
-              Expanded(
-                child: _buildCard(title: 'Menu', content: _buildMenuList()),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(width: 12),
-        Flexible(
-          flex: 5,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(child: _buildStatCard('Users', '1.234')),
-                  const SizedBox(width: 8),
-                  Expanded(child: _buildStatCard('Sales', '567')),
-                  const SizedBox(width: 8),
-                  Expanded(child: _buildStatCard('Visits', '8.901')),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              width: double.infinity,
+              constraints: const BoxConstraints(maxWidth: 600),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 8,
+                    offset: Offset(2, 4),
+                  ),
                 ],
               ),
-              const SizedBox(height: 12),
-              Expanded(
-                child: _buildCard(
-                  title: 'List Item',
-                  content: _buildItemList(),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: NetworkImage(
+                        'https://png.pngtree.com/png-vector/20221128/ourlarge/pngtree-hand-drawing-cartoon-career-woman-png-image_6483657.png',
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+
+                
+                    const Text(
+                      'Nadia Tsabita',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const Text(
+                      'Mahasiswa',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(Icons.person_add_alt),
+                          label: const Text('Follow'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        OutlinedButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(Icons.message),
+                          label: const Text('Message'),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Colors.blueAccent),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 25),
+
+                   
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        InfoCard(
+                          icon: Icons.phone,
+                          label: 'Telepon',
+                          value: '0896-8078-3294',
+                          color: Colors.green,
+                        ),
+                        InfoCard(
+                          icon: Icons.email,
+                          label: 'Email',
+                          value: 'nadiatsabita@gmail.com',
+                          color: Colors.redAccent,
+                        ),
+                        InfoCard(
+                          icon: Icons.location_on,
+                          label: 'Alamat',
+                          value: 'Pasuruan,Bangil',
+                          color: Colors.blueAccent,
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    const Text(
+                      '',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: Colors.black54,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    
+                    const Text(
+                      '© 2025 | Desain Layout Row & Column',
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildNarrowLayout() {
-    return Column(
-      children: [
-        _buildCard(title: 'Profil', height: 120),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildStatCard('Users', '1.234')),
-            const SizedBox(width: 8),
-            Expanded(child: _buildStatCard('Sales', '567')),
-            const SizedBox(width: 8),
-            Expanded(child: _buildStatCard('Visits', '8.901')),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Expanded(
-          child: _buildCard(title: 'List Item', content: _buildItemList()),
-        ),
-        const SizedBox(height: 12),
-        _buildCard(title: 'Menu', content: _buildMenuList(), height: 120),
-      ],
-    );
-  }
-
-  Widget _buildFooter(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(child: Text('© 2025 Contoh Aplikasi')),
-        TextButton(onPressed: () {}, child: const Text('Help')),
-        const SizedBox(width: 8),
-        ElevatedButton(onPressed: () {}, child: const Text('Logout')),
-      ],
-    );
-  }
-
-  Widget _buildCard({required String title, Widget? content, double? height}) {
-    return Container(
-      height: height,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 228, 138, 138),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: content ?? const Center(child: Text('Nadia113')),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatCard(String label, String value) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade50,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 12)),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: const [Icon(Icons.trending_up, size: 16)],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMenuList() {
-    final menu = ['Dashboard', 'Users', 'Settings', 'Reports', 'Help'];
-    return ListView.separated(
-      itemCount: menu.length,
-      separatorBuilder: (_, __) => const Divider(),
-      itemBuilder: (context, idx) {
-        return ListTile(
-          leading: CircleAvatar(child: Text(menu[idx][0])),
-          title: Text(menu[idx]),
-          onTap: () {},
-        );
-      },
-    );
-  }
-
-  Widget _buildItemList() {
-    return ListView.builder(
-      itemCount: 12,
-      itemBuilder: (context, i) {
-        return Card(
-          margin: const EdgeInsets.symmetric(vertical: 6),
-          child: ListTile(
-            leading: const Icon(Icons.article),
-            title: Text('Item #${i + 1}'),
-            subtitle: const Text('Deskripsi singkat item.'),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.chevron_right),
             ),
           ),
-        );
-      },
+        ),
+      ),
+    );
+  }
+}
+
+class InfoCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color color;
+
+  const InfoCard({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CircleAvatar(
+          backgroundColor: color.withOpacity(0.15),
+          child: Icon(icon, color: color),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          label,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+        ),
+        Text(
+          value,
+          style: const TextStyle(fontSize: 12, color: Colors.black54),
+        ),
+      ],
     );
   }
 }
